@@ -1,0 +1,6 @@
+interface:
+  display_name: "Research Learning Loop"
+  short_description: "面向 AI 论文、代码追踪与可信复现的一体化学习闭环"
+  default_prompt: "使用 $research-learning-loop 带我学习这篇论文及其官方代码，并通过最小实验验证核心主张。"
+policy:
+  allow_implicit_invocation: true
