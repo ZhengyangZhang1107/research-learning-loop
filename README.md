@@ -1,6 +1,6 @@
 # Research Learning Loop
 
-面向 AI、3D/4D Vision 与 World Models 初学者的研究学习 Skill。
+面向初学者的研究学习 Skill。
 
 它把新领域入门、论文阅读、前置知识补全、官方代码追踪、论文—代码映射、项目复现、实验验证和主动回忆连接成一个可恢复的学习闭环。
 
