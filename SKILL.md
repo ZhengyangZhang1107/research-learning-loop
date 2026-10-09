@@ -2,7 +2,7 @@
 name: research-learning-loop
 description: Guide a learner through entering an AI research field, reading a paper, bridging prerequisites, tracing an official repository, mapping claims to runtime code, and reproducing or validating results. Use when the user wants structured learning from papers and code, especially AI, 3D/4D vision, or world-model projects. Do not use for simple factual questions, ordinary debugging without a learning goal, paper writing, or peer review.
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
 ---
 
 # Research Learning Loop
@@ -43,8 +43,9 @@ Learning State
   ├── Knowledge Bridge Cards
   ├── Claim Registry
   │     └── Implementation Map
+  │            ├── Trace Run (only when runtime tracing is authorized)
   │            └── Reproduction Contract
-  │                   └── Run Log
+  │                   └── Reproduction Run
   └── Failure Patterns (only when reusable)
 ```
 
@@ -54,7 +55,7 @@ Reference records by ID instead of copying their contents. Generate a handoff as
 
 ### S0 — Goal, learning mode, and source snapshot
 
-Identify the requested outcome, current knowledge, available materials, collaboration mode, and one precise next action. When paper or code versions matter, record the paper version, supplement, repository URL, commit/tag, and dirty state. Defer data, checkpoint, configuration, hardware, and budget details until reproduction planning.
+Identify the requested outcome, current knowledge, available materials, explanation preferences, collaboration mode, and one precise next action. When paper or code versions matter, record the paper version, supplement, repository URL, commit/tag, dirty state, and the locators or gaps for searchable text, figures, tables, and code. Materialize or clone sources only when that write is within scope; verify an automatically discovered repository before treating it as official. Defer data, checkpoint, configuration, hardware, and budget details until reproduction planning.
 
 ### S1 — Minimal field map
 
@@ -78,6 +79,8 @@ Use this order exactly:
 
 Create a compact paper map, draft three to five important claims directly in the Claim Registry, and queue only concepts that block the next step. Do not chase citations or derive every equation during this pass.
 
+When the user wants an interactive walkthrough, apply [references/guided-reading.md](references/guided-reading.md) as a presentation layer over this fixed order. It does not add another pass or replace the S2 sequence.
+
 ### S3 — Blocking prerequisite bridges
 
 Process at most three blocking concepts at a time. Every bridge must use exactly:
@@ -98,6 +101,8 @@ After the self-test, return to the named section, figure, equation, or table and
 
 Reconstruct `problem → design action → changed information flow/objective → expected effect → evidence`. Separate author claims, paper evidence, implementation evidence, observed experimental evidence, and inference. Refine the draft Claim records rather than creating a second claim list.
 
+For central mechanisms, select only the applicable views needed to make the explanation executable in the learner's head: the real figure, an equation with symbols and shapes, one data sample, a training or inference flow, or a concrete walkthrough. Use the guided-reading protocols rather than turning all views into a mandatory checklist or creating parallel notes.
+
 ### S5 — Runtime path and implementation map
 
 Trace one representative execution spine:
@@ -110,15 +115,17 @@ README command → entrypoint → CLI/config precedence → data pipeline
 
 Generate code candidates from paper anchors, inspect real source, follow calls, and confirm with runtime evidence when practical. Never infer correspondence from a filename or class name alone.
 
+Trace one concrete sample or batch through important shape, unit, frequency, cache, state, and discard boundaries. Separate training from inference; for iterative or closed-loop systems, trace at least two steps when the state transition is part of the target mechanism.
+
 Read [references/code-and-mapping.md](references/code-and-mapping.md) for S5.
 
 ### S6 — Reproduction contract
 
-Choose a target type (`runability`, `numerical`, `trend`, or `mechanism`) and the lowest unverified reproduction level R0–R6. Define success, tolerance, scope differences, required artifacts, resource boundary, learner-owned part, and stop condition before a substantive run.
+For each Contract, choose one target type (`runability`, `numerical`, `trend`, or `mechanism`) and exactly one target level: an isolated component check C0 or the lowest unverified end-to-end reproduction level R0–R6. Define success, tolerance, scope differences, required artifacts, resource boundary, learner-owned part, and stop condition before a substantive run. C0 can support a mechanism or implementation link but cannot stand in for an end-to-end reproduction level; use a separate Contract if both C0 and an R level are needed.
 
 ### S7 — Execute, validate, and diagnose
 
-Record exact commands, resolved configuration or diff, source/data/checkpoint revisions, seed, environment, hardware, terminal state, metrics, and artifacts in one Run record. A zero exit code or visible progress is not a reproduced result. Update the linked Claim verdict only after comparing observations with the contract's scope.
+Use a Run with `run_purpose: reproduction`. Record exact commands, resolved configuration or diff, source/data/checkpoint revisions, seed, environment, hardware, terminal state, metrics, and artifacts. A zero exit code or visible progress is not a reproduced result. After comparison with the Contract, update the targeted Implementation Map and, only when Claims are linked, the Claim verdict.
 
 Read [references/reproduction-and-validation.md](references/reproduction-and-validation.md) for S6–S7.
 
@@ -149,6 +156,8 @@ Select only questions relevant to the route: one-minute explanation, redraw the 
 10. Modify user code conservatively and keep unrelated changes intact.
 11. Leave at least one meaningful explanation, prediction, implementation, or diagnosis to the learner unless `execute` was explicitly chosen.
 12. Load only the reference files needed for the active route. Use [references/domain-checks.md](references/domain-checks.md) only for applicable 3D, 4D, or world-model work.
+13. Do not claim to have inspected a figure, sample, code path, or runtime state unless that evidence was actually available and examined.
+14. If an explanation fails, change representation instead of merely lengthening it and update the blocker. Promote a delivery preference only after the learner states it or demonstrates the same need repeatedly.
 
 ## Completion
 

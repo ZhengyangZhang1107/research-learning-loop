@@ -1,6 +1,6 @@
 # Reproduction and Validation
 
-Use this reference for S6–S7. Reproduction is a scoped test of a versioned claim, not a binary label attached to an entire paper.
+Use this reference for S6–S7. Validation is a scoped test of a versioned Claim and/or implementation decision, not a binary label attached to an entire paper or repository.
 
 ## S6 — Define the reproduction contract
 
@@ -14,6 +14,7 @@ Use this reference for S6–S7. Reproduction is a scoped test of a versioned cla
 ### Choose the reproduction level
 
 ```text
+C0  Isolated component or mechanism micro-test; scoped evidence, not an end-to-end reproduction level
 R0  Environment and dependencies are usable
 R1  Official sample or demo runs
 R2  Official checkpoint inference runs
@@ -23,15 +24,15 @@ R5  Official-scale result is matched within the contract
 R6  One-variable ablation, modification, or falsification test
 ```
 
-Begin at the lowest level not already supported by trustworthy evidence. Do not force a rerun of lower levels when their artifacts, versions, and conditions are already adequate.
+Use C0 for a hypothesis-driven or interventional shape, unit, gradient, branch, transform, or state-transition check with a predeclared pass criterion. A purely observational execution with no pass criterion is a trace Run, not C0. Begin end-to-end reproduction at the lowest R level not already supported by trustworthy evidence. One Contract selects one level; when C0 precedes or accompanies an R level, create separate Contracts and linked Runs. C0 never upgrades an end-to-end level by itself. Do not force a rerun of lower levels when their artifacts, versions, and conditions are already adequate.
 
 ### Define success before execution
 
 Create one Reproduction Contract containing:
 
-- linked Claim IDs;
-- target type and R level;
-- paper conditions versus current conditions;
+- at least one linked Claim ID or Implementation ID;
+- target type and target level;
+- paper, code, or specification conditions versus current conditions;
 - pass criterion and tolerance basis;
 - required logs, metrics, checkpoints, predictions, or plots;
 - time, compute, storage, and cost boundary;
@@ -74,9 +75,9 @@ Run only checks that can retire a meaningful risk:
 
 If a check cannot change the plan, omit it.
 
-## S7 — Execute through one Run lifecycle
+## S7 — Execute through one reproduction Run lifecycle
 
-Use one record from planning through termination:
+Use one record with `run_purpose: reproduction` and the Contract ID from planning through termination:
 
 ```text
 planned → running → completed / failed / cancelled
@@ -96,13 +97,13 @@ Completion requires the terminal evidence and artifacts named in the contract.
 
 ## Interpret the run
 
-A Run outcome is only:
+A reproduction Run outcome is only:
 
 - `pass`: it met this contract's criterion;
 - `fail`: it violated the criterion under comparable conditions;
 - `inconclusive`: missing comparability, weak power, ambiguous failure, or insufficient evidence prevents judgment.
 
-Then aggregate linked Runs into the Claim verdict. One passing toy run normally produces `toy-evidence`, not `verified`.
+For a Claim-targeting Contract, aggregate linked Runs into the Claim verdict; one passing toy run normally produces `toy-evidence`, not `verified`. For an implementation-only C0 Contract, update the Implementation Map's alignment, evidence level, relation basis, and confidence within the tested scope; do not create or change a Claim verdict merely to hold the result.
 
 Use language proportional to evidence:
 
@@ -148,9 +149,9 @@ Promote its prevention check into preflight only when that check is cheap, discr
 
 Before concluding, answer:
 
-- What exact Claim and scope were tested?
+- What exact Claim and/or Implementation decision, target level, and scope were tested?
 - Which source, code, data, checkpoint, config, and hardware versions were used?
 - What was expected and observed?
 - Did the Run pass, fail, or remain inconclusive?
-- What evidence changes the Claim verdict?
+- What evidence changes the Implementation Map and, if linked, the Claim verdict?
 - What is the smallest justified next action?

@@ -61,6 +61,8 @@ The number of passes follows the learning goal:
 
 S8 is retrieval practice followed by targeted lookup, not a fourth pass.
 
+When the user asks to be led through the paper, use [guided-reading.md](guided-reading.md) to present these passes as concrete, interactive checkpoints. That presentation layer must not reorder S2 or create a fourth pass.
+
 ## S2 — Pass 1: map the paper
 
 ### Fixed order
@@ -95,6 +97,7 @@ The last step builds an index of the paper; it does not mean reading every cited
 
 #### 方法总览图和图注
 
+- If the actual figure is available, inspect it rather than relying only on the caption.
 - What are the inputs, outputs, stages, and information flow?
 - Which components are new, and which are standard?
 - What details appear only in the caption?
@@ -190,6 +193,8 @@ For each core equation, determine:
 - optimization direction and gradient path when relevant;
 - assumptions and boundary cases;
 - candidate implementation terms to search later.
+
+When it materially improves understanding, apply the figure, equation, data-specimen, information-flow, or concrete walkthrough protocol in [guided-reading.md](guided-reading.md). Start from the system interface and one concrete sample; label real, published, observed, inferred, and illustrative values distinctly. These explanations refine the existing Claim and bridge records rather than creating another analysis document.
 
 ### Separate epistemic roles
 

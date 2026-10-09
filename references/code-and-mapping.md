@@ -38,6 +38,23 @@ README command
 
 Follow one sample or batch end to end. Record important types, tensor shapes, coordinate frames, units, device/dtype changes, and branching configuration values.
 
+## Walk one concrete sample through the runtime
+
+For a target mechanism, choose one representative input and repeat this unit along the active path:
+
+```text
+current value, shape, type, unit, or frame
+→ commit:path:symbol and active branch
+→ transformation
+→ resulting value, shape, type, unit, or frame
+```
+
+Use an accessible real sample when practical. If the mechanism is easier to expose at toy dimensions, label the values as illustrative, make indices or masks explicit, and then restore the resolved production dimensions. In `coach` or `pair`, ask the learner to predict one shape, branch, sign, or state update before revealing it. Wait for the answer in `coach`, and in `pair` when the prediction is learner-owned or explicitly requested; do not reveal or execute the next step unless the learner waives the pause.
+
+For training and inference, record separate paths when their inputs, gradients, state, or loop structure differ. Mark operations as once-per-sample, once-per-rollout, once-per-step, or repeated K times. Record which values are cached, carried forward, overwritten, detached, discarded, or recomputed. For recurrent, autoregressive, iterative-refinement, control, or world-model systems, inspect at least `t=0` and `t=1` when temporal state is part of the target Claim.
+
+Store a static or illustrative summary in the Implementation Map's optional `static_walkthrough`; do not create another walkthrough ledger. Use `run_purpose: trace` with no Contract only for observational execution: instrumentation may record reachability or values, but there is no predeclared pass criterion or intervention. Store raw inputs, intermediate values, outputs, and trace artifacts there, then update the Implementation Map's aggregate alignment, confidence, and `evidence_level`. A hypothesis-driven assertion, controlled input, perturbation, gradient check, or other predeclared test is C0 and requires a Contract plus a reproduction Run. Neither form verifies a paper Claim beyond its recorded scope.
+
 ## Locate code from paper anchors
 
 Use a candidate-confirmation process:

@@ -16,6 +16,10 @@ learning_state:
   known: []
   blockers: []
   deferred: []
+  delivery_preferences:        # Optional; update only from explicit or repeatedly demonstrated preferences.
+    preferred_example_context: ""
+    explanation_style: []
+    presentation_constraints: []
   mastery:
     field: L0 | L1 | L2 | L3 | L4 | L5
     paper: L0 | L1 | L2 | L3 | L4 | L5
@@ -28,6 +32,13 @@ learning_state:
     repository_url: ""
     commit_or_tag: ""
     dirty_state: ""
+    materials:                 # URLs or local paths; blank means not yet established.
+      paper_pdf_or_url: ""
+      searchable_text_or_source: ""
+      supplement: ""
+      figures_or_table_index: ""
+      repository_checkout: ""
+      missing_or_unverified: []
   field_map:
     task: ""
     data: ""
@@ -52,6 +63,8 @@ Mastery levels:
 - `L3`: can trace the runtime implementation;
 - `L4`: can reproduce and diagnose discrepancies;
 - `L5`: can modify the method, predict consequences, and validate them.
+
+`delivery_preferences` is not a separate user profile. Keep only preferences that affect the active learning work, and update them from explicit statements or repeated demonstrated needs. Use `current_stage` and `last_verified_step` as the resume pointer rather than maintaining a second paper outline. Source Snapshot `materials` records what can actually be inspected; an empty or unverified locator must not be treated as evidence.
 
 ## Knowledge Bridge Card
 
@@ -110,6 +123,13 @@ implementation:
   code_anchor: "commit:path:symbol or not-found"
   call_path: []
   effective_config_and_precedence: []
+  static_walkthrough:          # Optional derived view; raw executed observations belong to a Run.
+    input_basis: paper | code-static | illustrative | ""
+    input_provenance: "paper/sample locator, dataset item ID, fixture path, or code anchor"
+    shape_unit_or_frame_transitions: []
+    frequency_cache_and_state_summary: []
+    training_inference_delta: []
+    next_step_state_delta: []
   current_choice: ""
   alternatives: []
   risk_if_wrong: ""
@@ -127,14 +147,17 @@ implementation:
 - `inferred`: reasoned correspondence with incomplete direct support;
 - `ambiguous`: multiple plausible mappings remain.
 
+`static_walkthrough` is an optional, derived explanation of the mapped implementation. Illustrative values must be labeled. If the path is executed, keep raw inputs, intermediate values, outputs, and trace artifacts in a linked Run; update only the aggregate mapping, alignment, confidence, and `evidence_level` here.
+
 ## Reproduction Contract
 
 ```yaml
 reproduction_contract:
   contract_id: RC-01
   target_claim_ids: []
+  target_implementation_ids: []
   reproduction_type: runability | numerical | trend | mechanism
-  target_level: R0 | R1 | R2 | R3 | R4 | R5 | R6
+  target_level: C0 | R0 | R1 | R2 | R3 | R4 | R5 | R6
   repo_readiness:              # Fill only relevant entries.
     dependencies: available | partial | missing | unknown
     training_code: available | partial | missing | not-needed | unknown
@@ -166,8 +189,9 @@ Use one record from planning through termination.
 ```yaml
 run:
   run_id: RUN-001
+  run_purpose: trace | reproduction
   lifecycle: planned | running | completed | failed | cancelled
-  contract_id: RC-01
+  contract_id: ""             # Required when run_purpose is reproduction; blank for a pure trace.
   linked_claim_ids: []
   linked_implementation_ids: []
   hypothesis: ""
@@ -186,7 +210,7 @@ run:
   terminal_state: ""
   observed_metrics: {}
   artifacts: []
-  test_outcome: pass | fail | inconclusive
+  test_outcome: observed | not-observed | pass | fail | inconclusive
   interpretation: ""
   failure_diagnosis:
     symptom: ""
@@ -197,7 +221,7 @@ run:
     prevention_candidate: ""
 ```
 
-The Run owns raw observations. The Claim Registry owns the cross-run verdict.
+The Run owns raw observations. For `run_purpose: trace`, use only `observed`, `not-observed`, or `inconclusive`; this can upgrade an Implementation Map to executed evidence but cannot by itself verify a paper Claim. For `run_purpose: reproduction`, require a Contract and use only `pass`, `fail`, or `inconclusive`. The Claim Registry owns the cross-run verdict.
 
 ## Failure Pattern
 

@@ -2,7 +2,7 @@
 
 This project synthesizes methods from open-source research, tutoring, code-navigation, and reproducibility projects. The workflow and wording in this repository are newly organized for a learner-centered paper–code–reproduction loop; source code and templates were not copied.
 
-Star counts below are approximate GitHub API snapshots from 2026-09-24 and will change. Popularity was used as one signal for mature design, not as a proxy for methodological correctness.
+Star counts below are approximate GitHub API snapshots and will change. Unless a row says otherwise, the snapshot date is 2026-09-24. Popularity was used as one signal for mature design, not as a proxy for methodological correctness.
 
 ## High-star architectural references
 
@@ -26,6 +26,7 @@ These repositories have smaller audiences but contain narrow methods useful to t
 
 | Project | License/status | Design influence | Deliberately not adopted |
 | --- | --- | --- | --- |
+| [kelip-paper-reading](https://github.com/skJack/kelip-paper-reading) at [`925953b`](https://github.com/skJack/kelip-paper-reading/tree/925953b15813f18b25eeb1a1dca9790f54a47498) | ≈88 stars (2026-10-09) / MIT | Inspect and show the real figure; explain equations with symbols, shapes, and a numerical instance; ground data in one sample; trace once/loop/cache/discard state; use toy-to-real and multi-step walkthroughs; change representation when an explanation fails | Replacing the fixed S2 order with its six stops, mandatory one-stop-per-turn pacing, default downloads/clones/notes or separate `profile.md` writes, Unicode-only equations, or vendoring scripts not independently security- and compatibility-reviewed by this project |
 | [RigorPilot](https://github.com/lllllllama/RigorPilot-Skills/blob/main/skills/ai-research-reproduction/SKILL.md) | MIT | Minimal trustworthy target, conservative patch boundary, and “runs” versus “matches” | Skipping implementation reading when the learner's goal is code understanding |
 | [UCL paper–code auditor](https://github.com/UCL-ERL/skills/blob/main/skills/evaluation/paper-code-consistency-auditor/SKILL.md) | MIT | Version contract, effective configuration, and paper/code drift | A second audit report duplicating the Implementation Map |
 | [UCL provenance auditor](https://github.com/UCL-ERL/skills/blob/main/skills/evaluation/experiment-provenance-auditor/SKILL.md) | MIT | Commit, config, data, seed, hardware, command, log, checkpoint, and artifact provenance | A separate provenance ledger duplicating Run records |
@@ -49,6 +50,7 @@ The main original integration in this repository is:
 field entry
 → fixed first paper pass
 → blocking knowledge bridges
+→ evidence-grounded visual, equation, sample, and information-flow explanation
 → mechanism and Claim reconstruction
 → versioned runtime tracing
 → unified implementation/ambiguity mapping
